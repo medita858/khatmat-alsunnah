@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173d32">
+  <meta name="description" content="ختمة السنة - خطتك اليومية لقراءة كتب السنة النبوية">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>ختمة السنة</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark" aria-hidden="true">۞</div>
+    <div>
+      <h1>خَتْمَةُ السُّنَّة</h1>
+      <p>رحلتك اليومية في قراءة حديث رسول الله ﷺ</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero card">
+      <span class="eyebrow">الكتاب الأول</span>
+      <h2>صحيح البخاري</h2>
+      <p>ابدأ ختمتك بخطة تناسب وقتك، وتابع تقدمك يومًا بعد يوم.</p>
+      <div class="hero-actions">
+        <button id="setupBtn" class="btn btn-gold">إعداد ختمة</button>
+        <button id="continueBtn" class="btn btn-outline" hidden>متابعة الورد</button>
+      </div>
+    </section>
+
+    <section id="setupPanel" class="card" hidden>
+      <div class="section-heading">
+        <h2>إعداد ختمتك</h2>
+        <span class="tag">قابلة للتعديل</span>
+      </div>
+      <p class="muted">أدخل عدد الأحاديث المعتمد في النسخة التي ستقرأ منها. لا نفترض رقمًا موحدًا لاختلاف طرق العد والترقيم.</p>
+      <label for="totalHadiths">إجمالي الأحاديث في نسختك</label>
+      <input id="totalHadiths" type="number" min="1" inputmode="numeric" placeholder="مثال: أدخل العدد من طبعتك">
+      <label for="dailyHadiths">عدد الأحاديث يوميًا</label>
+      <input id="dailyHadiths" type="number" min="1" inputmode="numeric" value="20">
+      <div id="planPreview" class="preview" aria-live="polite">أدخل العددين لعرض مدة الختمة المتوقعة.</div>
+      <div class="button-row">
+        <button id="savePlanBtn" class="btn btn-primary">حفظ الخطة</button>
+        <button id="cancelSetupBtn" class="btn btn-quiet">إلغاء</button>
+      </div>
+    </section>
+
+    <section id="dashboard" class="card" hidden>
+      <div class="section-heading">
+        <h2>ختمتك الحالية</h2>
+        <span class="tag tag-green">صحيح البخاري</span>
+      </div>
+      <div class="stats">
+        <div><strong id="progressPercent">0%</strong><span>الإنجاز</span></div>
+        <div><strong id="daysLeft">—</strong><span>أيام متبقية تقريبًا</span></div>
+        <div><strong id="readCount">0</strong><span>حديث مقروء</span></div>
+      </div>
+      <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+      <p id="rangeText" class="range-text"></p>
+      <div class="button-row">
+        <button id="readBtn" class="btn btn-primary">افتح ورد اليوم</button>
+        <button id="editPlanBtn" class="btn btn-quiet">تعديل الخطة</button>
+      </div>
+    </section>
+
+    <section id="reader" class="card" hidden>
+      <div class="section-heading">
+        <h2>ورد القراءة</h2>
+        <button id="backBtn" class="text-button">العودة</button>
+      </div>
+      <p id="readerRange" class="muted"></p>
+      <div id="hadithList" class="hadith-list">
+        <div class="empty-state">
+          <div class="empty-icon">📖</div>
+          <h3>قاعدة الأحاديث لم تُضف بعد</h3>
+          <p>نظام الختمة جاهز، لكننا لن نعرض نصوصًا قبل استيراد ملف موثوق ومراجع.</p>
+        </div>
+      </div>
+      <div class="button-row">
+        <button id="completeBtn" class="btn btn-gold">أتممت ورد اليوم</button>
+      </div>
+      <p class="small-note">تسجيل إتمام الورد يحدّث تقدمك على هذا الجهاز.</p>
+    </section>
+
+    <section class="card import-card">
+      <div class="section-heading">
+        <h2>مصدر الأحاديث</h2>
+        <span class="tag">قيد التجهيز</span>
+      </div>
+      <p class="muted">يمكن لاحقًا استيراد ملف JSON يحتوي على الأحاديث بعد التحقق من مصدره وحقوق استخدامه.</p>
+      <label class="file-label" for="hadithFile">اختيار ملف الأحاديث JSON</label>
+      <input id="hadithFile" type="file" accept=".json,application/json">
+      <p id="importStatus" class="small-note" aria-live="polite">لم يتم استيراد ملف بعد.</p>
+    </section>
+
+    <section class="notice">
+      <strong>تنبيه علمي</strong>
+      <p>قد يختلف عدد الأحاديث وترقيمها بحسب الطبعة وطريقة العد. يجب اعتماد نسخة محددة ومراجعة بياناتها قبل إطلاق التطبيق للعامة.</p>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="التنقل">
+    <a href="#home" class="active">الرئيسية</a>
+    <a href="#library" id="libraryNav">المكتبة</a>
+    <a href="#progress" id="progressNav">إنجازي</a>
+  </nav>
+
+  <footer>ختمة السنة · نسخة تجريبية أولى</footer>
+  <script src="app.js"></script>
+</body>
+</html>
